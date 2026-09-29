@@ -4,10 +4,10 @@ from pathlib import Path
 import matplotlib.pyplot as plt
 
 # Geometria (jednostka = szerokość jednego toru)
-STRAIGHT = 10          # długość prostej
+STRAIGHT = 6           # długość prostej (tor 20×14 ≈ proporcje A4)
 INNER_RADIUS = 3       # promień krawężnika
 LANES = 4              # tor 0 = wewnętrzny
-STRAIGHT_CELLS = 10    # pola na jednej prostej (liczba parzysta: start/meta w połowie)
+STRAIGHT_CELLS = 6     # pola na jednej prostej (liczba parzysta: start/meta w połowie)
 BEND_CELLS = 9         # pola na jednym łuku toru 0; każdy tor dalej od środka +1
 
 # Napisy w polach: (tor, numer pola licząc od startu, tekst)
@@ -50,9 +50,9 @@ def line(ax, points, **style):
     ax.plot([p[0] for p in points], [p[1] for p in points], color='black', **style)
 
 
-fig, ax = plt.subplots(figsize=(297 / 25.4, 210 / 25.4))  # A4 poziomo
-fig.subplots_adjust(left=0.04, right=0.96, bottom=0.04, top=0.9)
-ax.set_title('ŻUŻEL', fontsize=18, pad=18)
+PAGE_W, PAGE_H, MARGIN = 297, 210, 5  # A4 poziomo i margines drukarki, mm
+fig = plt.figure(figsize=(PAGE_W / 25.4, PAGE_H / 25.4))
+ax = fig.add_axes([MARGIN / PAGE_W, MARGIN / PAGE_H, 1 - 2 * MARGIN / PAGE_W, 1 - 2 * MARGIN / PAGE_H])
 
 # Krawędzie torów: gęsto próbkowane zamknięte kontury
 outline = [(sec, i / 100) for sec in ('bottom', 'right', 'top', 'left') for i in range(100)]
@@ -81,10 +81,14 @@ start_x, start_y = point(INNER_RADIUS - 0.6, 'bottom', 0.5)
 ax.annotate('', xy=(start_x + 1.5, start_y), xytext=(start_x, start_y),
             arrowprops=dict(arrowstyle='->', color='black', lw=2))
 
+# Tor wypełnia stronę: granice osi dokładnie na zewnętrznej krawędzi
+outer = INNER_RADIUS + LANES
+ax.set_xlim(-outer, STRAIGHT + outer)
+ax.set_ylim(-outer, outer)
 ax.set_aspect('equal')
 ax.axis('off')
 
-pdf_path = Path(__file__).resolve().with_name('zuzel-a4.pdf')
+pdf_path = Path(__file__).resolve().with_name('zuzel-claude.pdf')
 fig.savefig(pdf_path, facecolor='white')
 print(f'Zapisano PDF A4: {pdf_path}')
 plt.show()
