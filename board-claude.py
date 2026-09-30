@@ -50,9 +50,12 @@ def line(ax, points, **style):
     ax.plot([p[0] for p in points], [p[1] for p in points], color='black', **style)
 
 
-PAGE_W, PAGE_H, MARGIN = 297, 210, 5  # A4 poziomo i margines drukarki, mm
+PAGE_W, PAGE_H = 297, 210  # A4 poziomo, mm
+MARGIN = 2                 # margines strony, mm
+SHIFT_X = -1               # przesunięcie rysunku w poziomie, mm (ujemne = w lewo)
 fig = plt.figure(figsize=(PAGE_W / 25.4, PAGE_H / 25.4))
-ax = fig.add_axes([MARGIN / PAGE_W, MARGIN / PAGE_H, 1 - 2 * MARGIN / PAGE_W, 1 - 2 * MARGIN / PAGE_H])
+ax = fig.add_axes([(MARGIN + SHIFT_X) / PAGE_W, MARGIN / PAGE_H,
+                   1 - 2 * MARGIN / PAGE_W, 1 - 2 * MARGIN / PAGE_H])
 
 # Krawędzie torów: gęsto próbkowane zamknięte kontury
 outline = [(sec, i / 100) for sec in ('bottom', 'right', 'top', 'left') for i in range(100)]
@@ -80,6 +83,9 @@ line(ax, [point(INNER_RADIUS, 'bottom', 0.5), point(INNER_RADIUS + LANES, 'botto
 start_x, start_y = point(INNER_RADIUS - 0.6, 'bottom', 0.5)
 ax.annotate('', xy=(start_x + 1.5, start_y), xytext=(start_x, start_y),
             arrowprops=dict(arrowstyle='->', color='black', lw=2))
+
+# Tytuł na środku murawy
+ax.text(STRAIGHT / 2, 0.5, 'ŻUŻEL', fontsize=36, ha='center', va='center')
 
 # Tor wypełnia stronę: granice osi dokładnie na zewnętrznej krawędzi
 outer = INNER_RADIUS + LANES
