@@ -23,6 +23,7 @@ Ignore all `*.pdf`, `*.svg`, `*.png` and `*.jpg`/`*.jpeg` files: don't read, sea
 - Every point comes from `point(radius, section, f)`: `section` is `bottom`/`right`/`top`/`left`, `f` goes 0→1 along it, in racing direction (counter-clockwise). Outlines, dividers, and label positions all use it, so lines meet cleanly and dividers on bends are radial.
 - `cells(lane)` lists cell starts in racing order beginning at the start line; the label cell index (`LABELS`: `(lane, cell index, text)`) counts from there and wraps around.
 - Each lane has one more cell per bend than the lane inside it (two more cells in total), so each inner lane has two fewer. `STRAIGHT_CELLS` must stay even so the start line falls on a cell boundary.
+- Special cells (`special_cells()`: entry `»»` zone, bend limit circle `BEND_LIMIT + lane`, start letters A–D) are derived from the constants; `LABELS` and `ROUGH` (hatched cells) must not land on them, and the script exits with an error if they do. Alternative `LABELS`/`ROUGH` sets are kept as commented-out variants at the top; the game rules are in README and summarised in the infield legend.
 - Keep the figure at A4 landscape (297×210 mm) with print margins and equal aspect; don't crop the page to the contents (no `bbox_inches='tight'`). Print at 100% / actual size.
 
 ## Language and style
