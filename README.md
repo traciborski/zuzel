@@ -14,14 +14,14 @@ Skrypt generuje czarno-białą planszę do gry żużlowej z owalnym torem i pola
     pip install matplotlib
     ```
 
-4. Umieść plik `board.py` w wybranym katalogu.
+4. Umieść plik `board-gra.py` (plansza z zasadami gry) lub `board-claude.py` (sam tor na całą stronę) w wybranym katalogu.
 
 5. Uruchom skrypt:
     ```
-    python board.py
+    python board-gra.py
     ```
 
-Skrypt zapisze obok `board.py` plik `zuzel-a4.pdf` i wyświetli planszę w nowym oknie.  
+Skrypt zapisze obok siebie plik PDF (`zuzel-gra.pdf` lub `zuzel-claude.pdf`) i wyświetli planszę w nowym oknie.  
 Przy drukowaniu wybierz papier A4, orientację poziomą i skalę 100% / „Rzeczywisty rozmiar”.
 Jeśli masz problem z uruchomieniem, sprawdź czy Python i pip są dostępne z linii poleceń (`python --version`, `pip --version`).
 
@@ -51,7 +51,7 @@ Na planszy są 4 tory. Bieg trwa 4 okrążenia, a jazda odbywa się przeciwnie d
 
 ## Warianty planszy
 
-Na początku `board.py` jest kilka gotowych zestawów `LABELS` (pola zdarzeń) i `ROUGH` (koleiny). Domyślnie włączona jest wersja podstawowa. Żeby wybrać inną, zakomentuj wersję podstawową i odkomentuj wybraną:
+Na początku `board-gra.py` jest kilka gotowych zestawów `LABELS` (pola zdarzeń) i `ROUGH` (koleiny). Domyślnie włączona jest wersja podstawowa. Żeby wybrać inną, zakomentuj wersję podstawową i odkomentuj wybraną:
 
 - **podstawowa**: kilka zdarzeń i pięć kolein,
 - **z dużą liczbą zdarzeń**: zdarzenia na każdym torze i dużo kolein,
@@ -62,4 +62,5 @@ Trudność łuków ustawia `BEND_LIMIT`: 3 to wersja podstawowa, 4 łagodna, a 2
 
 ## Zawartość
 
-- `board.py` – skrypt z generacją planszy
+- `board-gra.py` – plansza z mechaniką gry: limity na łukach, koleiny, banda, legenda i karta biegu (opisana wyżej)
+- `board-claude.py` – sam tor z krótszą prostą, wypełniający całą stronę A4

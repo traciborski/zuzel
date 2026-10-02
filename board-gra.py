@@ -252,7 +252,7 @@ ax.text(card_x + 1.65, card_y - 2.75, 'Bieg: 4 okrążenia.  Punkty: 3 – 2 –
 ax.set_aspect('equal')
 ax.axis('off')
 
-pdf_path = Path(__file__).resolve().with_name('zuzel-a4.pdf')
+pdf_path = Path(__file__).resolve().with_name('zuzel-gra.pdf')
 fig.savefig(pdf_path, facecolor='white')
 print(f'Zapisano PDF A4: {pdf_path}')
 plt.show()
